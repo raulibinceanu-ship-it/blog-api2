@@ -7,6 +7,8 @@ import com.example.blogapi2.repositories.AuthorRepository;
 import com.example.blogapi2.repositories.BlogPostRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/blogposts")
 public class BlogPostController {
@@ -33,5 +35,15 @@ public class BlogPostController {
         blogPost.setAuthor(author);
 
         return blogPostRepository.save(blogPost);
+    }
+
+    @GetMapping
+    public List<BlogPost> getAllBlogPosts() {
+        return blogPostRepository.findAll();
+    }
+    @GetMapping("/{id}")
+    public BlogPost getBlogPostById(@PathVariable java.util.UUID id) {
+        return blogPostRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("BlogPost not found"));
     }
 }

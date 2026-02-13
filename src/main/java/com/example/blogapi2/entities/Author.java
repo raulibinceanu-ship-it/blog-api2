@@ -2,6 +2,9 @@ package com.example.blogapi2.entities;
 
 import jakarta.persistence.*;
 import java.util.UUID;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 
 @Entity
 public class Author {
@@ -10,14 +13,25 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @NotBlank(message = "Il nome è obbligatorio")
     private String nome;
+
+    @NotBlank(message = "Il cognome è obbligatorio")
     private String cognome;
+
+    @Email(message = "Email non valida")
+    @NotBlank(message = "Email obbligatoria")
     private String email;
+
+    @NotBlank(message = "Data di nascita obbligatoria")
     private String dataDiNascita;
+
+    private String avatarUrl;
+
+
     public Author() {
     }
 
-    // Getter e Setter
 
     public UUID getId() {
         return id;
@@ -58,4 +72,13 @@ public class Author {
     public void setDataDiNascita(String dataDiNascita) {
         this.dataDiNascita = dataDiNascita;
     }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
 }
+
